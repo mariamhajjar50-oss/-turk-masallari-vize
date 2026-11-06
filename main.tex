@@ -1,0 +1,471 @@
+% ====================================================================
+% VİZE RAPOR ŞABLONU – Türk Masalları Derlemesi Web Sayfası
+% --------------------------------------------------------------------
+% DERLEME: Overleaf'te Menu > Compiler > XeLaTeX (pdfLaTeX de çalışır).
+%
+% KURALLAR (şablonu kullanmadan önce okuyun):
+%  1. Bölüm başlıklarını SİLMEYİN ve sırasını DEĞİŞTİRMEYİN.
+%  2. [KÖŞELİ PARANTEZ] içindeki ve gri renkli açıklama metinlerini
+%     kendi bilgilerinizle değiştirin; açıklama metinlerini silin.
+%  3. MEBİS'e YALNIZCA bu raporun PDF'ini yükleyin.
+%     ZIP ve HTML dosyası YÜKLEMEYİN. Tüm kontroller GitHub'dan yapılır.
+%  4. Kapaktaki GitHub ve YouTube bağlantıları doğru ve tıklanabilir
+%     olmalıdır. Teslimden önce PDF'teki bağlantılara tıklayıp deneyin.
+%  5. Haftalık katkı tablosundaki görseller için resim dosyalarını
+%     (hafta1.png, hafta2.png, ...) Overleaf projesine yükleyin.
+%     Dosya adlarında boşluk ve Türkçe karakter kullanmayın.
+%     Resim yoksa tabloda "görsel ekleyin" kutusu görünür.
+%  6. Yapay zekâ kullandıysanız Bölüm 5'i doldurun.
+% ====================================================================
+\documentclass[12pt,a4paper]{article}
+
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else
+  \usepackage{fontspec}
+\fi
+\usepackage[turkish]{babel}
+\usepackage[margin=2.4cm]{geometry}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{colortbl}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{amssymb}
+\usepackage{caption}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+
+\onehalfspacing
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\setlist{itemsep=2pt, topsep=4pt}
+\hypersetup{colorlinks=true, linkcolor=blue!50!black, urlcolor=blue!50!black}
+
+\definecolor{ana}{HTML}{14325C}
+\definecolor{acik}{HTML}{EEF2F8}
+
+\lstset{basicstyle=\ttfamily\small, backgroundcolor=\color{acik},
+  frame=single, rulecolor=\color{ana}, breaklines=true,
+  columns=fullflexible, keepspaces=true, showstringspaces=false}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Eski Zaman Hikâyeleri}
+\fancyhead[R]{Vize Raporu}
+\fancyfoot[C]{\thepage}
+
+% ---------- Yardımcı komutlar ----------
+% Gri açıklama metni (silinecek yönergeler için)
+\newcommand{\aciklama}[1]{{\color{gray}\itshape (#1)}}
+
+% Haftalık tablo görseli: dosya yoksa "görsel ekleyin" kutusu çıkar
+\newcommand{\haftagorsel}[1]{%
+  \IfFileExists{#1}{%
+    \includegraphics[width=\linewidth,height=4.2cm,keepaspectratio]{#1}%
+  }{%
+    \fbox{\parbox[c][2.6cm][c]{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{%
+      \centering\small\color{gray} Ekran görüntüsü / görsel ekleyin\\ \texttt{#1}}}%
+  }%
+}
+% Haftalık katılım kutuları (işaretlemek için $\square$ yerine $\boxtimes$ yazın)
+\newcommand{\katilimkutulari}{\par\vspace{3pt}\small $\square$ Ders içinde katılım sergiledim\par $\square$ Telafi yaptım}
+\newcommand{\katilimok}{\par\vspace{3pt}\small $\boxtimes$ Ders içinde katılım sergiledim\par $\square$ Telafi yaptım}
+\newcommand{\telafiok}{\par\vspace{3pt}\small $\square$ Ders içinde katılım sergiledim\par $\boxtimes$ Telafi yaptım}
+
+% Ek görsel: dosya yoksa hiçbir şey göstermez
+\newcommand{\haftaek}[1]{%
+  \IfFileExists{#1}{\par\vspace{4pt}\includegraphics[width=\linewidth,height=4.2cm,keepaspectratio]{#1}}{}%
+}
+
+% ---------- Kapak bilgileri ----------
+\newcommand{\universite}{Medipol Üniversitesi / Görsel İletişim Tasarımı}
+\newcommand{\dersadi}{Programlamaya Giriş}
+\newcommand{\hocaadi}{Meral Şentürk}
+\newcommand{\ogrenciadi}{Mariam Al Hajjar}
+\newcommand{\ogrencino}{86240066}
+\newcommand{\projeadi}{Eski Zaman Hikâyeleri}
+% Bağlantıları tam adres olarak yazın (https:// ile başlayarak)
+\newcommand{\githublink}{\url{https://github.com/KULLANICI-ADI/DEPO-ADI}}
+\newcommand{\youtubelink}{\url{https://youtu.be/QSVX8glw74g}}
+
+\begin{document}
+
+% ====================================================================
+% KAPAK
+% ====================================================================
+\begin{titlepage}
+\centering
+\vspace*{1cm}
+{\large \universite \par}
+\vspace{1.8cm}
+{\Huge\bfseries\color{ana} \projeadi \par}
+\vspace{0.4cm}
+{\Large Türk Masalları Derlemesi Web Sayfası \par}
+{\large Vize Raporu \par}
+\vspace{1.8cm}
+{\large \textbf{Ders:} \dersadi \par}
+{\large \textbf{Öğretim Üyesi:} \hocaadi \par}
+\vspace{1.2cm}
+{\large \textbf{Hazırlayan:} \ogrenciadi \par}
+{\large \textbf{Öğrenci No:} \ogrencino \par}
+\vspace{1.8cm}
+\fbox{\parbox{0.88\linewidth}{\centering\vspace{6pt}
+{\large\bfseries Proje Bağlantıları}\\[8pt]
+\textbf{GitHub deposu:}\\ \githublink \\[8pt]
+\textbf{YouTube sunum videosu:}\\ \youtubelink
+\vspace{6pt}}}
+\vfill
+{\large \today \par}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+% ====================================================================
+\section{Giriş}
+% ====================================================================
+Bu projede Türk masallarından seçtiğim on masalı bir araya getiren bir web sayfası yaptım. Sayfanın adı ``Eski Zaman Hikâyeleri''. Masalları kitap okur gibi rahat okuyabilmek ve istediğim masalı hemen bulabilmek istedim, o yüzden tasarımı buna göre yaptım. Sayfa tek bir HTML dosyası. CSS ve JavaScript kodlarını da aynı dosyanın içine yazdım, yani sayfa internet olmadan da açılıyor. Raporda önce masalları nasıl seçtiğimi, sonra tasarım kararlarımı ve kodun nasıl çalıştığını anlattım. Yapay zekâdan nerede yardım aldığımı, haftalık çalışmalarımı ve test sonuçlarımı da ekledim.
+
+\subsection{Proje Özeti}
+Sayfa iki kısımdan oluşuyor. Önce yıldızların, hilalin ve kayan yıldızların olduğu bir açılış sayfası geliyor. ``Keşfetmeye Başla'' düğmesine basınca masalların olduğu sayfaya geçiliyor. Orada her masal bir kitap kapağı gibi duruyor. Masalları arayabiliyorsunuz, türüne göre ayırabiliyorsunuz ve beğendiklerinizi favorilere ekleyebiliyorsunuz. Bir masala tıklayınca iki sayfalı bir kitap açılıyor ve masalı sayfaları çevirerek okuyorsunuz.
+
+\subsection{Gereksinimlerin Karşılanması}
+\begin{center}
+\rowcolors{2}{acik}{white}
+\begin{tabular}{@{}p{8.2cm}c@{}}
+\toprule
+\rowcolor{ana}\textcolor{white}{\textbf{Gereksinim}} & \textcolor{white}{\textbf{Durum}} \\
+\midrule
+Masal sayısı 8--12 arasında (10 masal)                 & $\boxtimes$ \\
+Tek HTML dosyası                                    & $\boxtimes$ \\
+Stil kodları içsel (\texttt{<style>} içinde)        & $\boxtimes$ \\
+Betik kodları içsel (\texttt{<script>} içinde)      & $\boxtimes$ \\
+İnternetsiz açılıp çalışıyor                        & $\boxtimes$ \\
+JavaScript sayfada anlamlı bir işlev görüyor        & $\boxtimes$ \\
+Masal metinleri kendi cümlelerimle yazıldı          & $\square$ \\
+Sayfa telefonda da düzgün görünüyor                 & $\boxtimes$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% ====================================================================
+\section{Masalların Seçimi}
+% ====================================================================
+Masalları seçerken üç şeye dikkat ettim. Birincisi, farklı türlerden masallar olsun istedim (hayvan, peri, efsane ve mizah). İkincisi, metinler çok uzun olmasın, kolay okunsun. Üçüncüsü, her masaldan bir ders ya da duygu çıksın. Kullandığım kaynakları Kaynakça kısmına yazdım.
+
+\begin{longtable}{@{}cp{4cm}p{3cm}p{5.4cm}@{}}
+\toprule
+\textbf{No} & \textbf{Masal} & \textbf{Tür} & \textbf{Seçilme nedeni} \\
+\midrule
+\endhead
+1 & Aslan Padişah ile Fare & Hayvan masalı & Küçük birinin de büyük bir iş yapabileceğini anlatıyor. \\
+2 & Altın Saçlı Kız & Peri masalı & İyi kalpli olmanın en değerli şey olduğunu anlatıyor. \\
+3 & Altın Top & Peri masalı & Mutluluğun paradan değil paylaşmaktan geldiğini gösteriyor. \\
+4 & Tombul Gözleme & Mizah / halk & Eğlenceli ve komik bir masal olduğu için seçtim. \\
+5 & Sevgiyle Akan Gözyaşları & Efsane & Sevgiyi ve fedakârlığı anlatan bir efsane. \\
+6 & Yalancı Değirmenci & Mizah / halk & Yalan söylemenin sonunda kişiye zarar verdiğini gösteriyor. \\
+7 & Tahir ile Zühre & Efsane & Halk hikâyelerinin en bilinen aşk hikâyelerinden biri. \\
+8 & Balıkçı ile Deniz Kızı & Peri masalı & Açgözlü olmanın her şeyi kaybettirdiğini anlatıyor. \\
+9 & Keloğlan ile Devler & Peri masalı & Keloğlan en tanınmış masal kahramanı. Zekâyla güçlü devlerin yenildiğini gösteriyor. \\
+10 & Ağlayan Nar ile Gülen Ayva & Peri masalı & Zıt duygulardaki iki ağaçla barışı ve anlayışı anlatıyor. \\
+\bottomrule
+\end{longtable}
+
+% ====================================================================
+\section{Tasarım Kararları}
+% ====================================================================
+Tasarımı kendim yaptım, hazır bir taslak ya da şablon kullanmadım.
+
+\subsection{Konuya Uygunluk}
+Türk masalları ``Evvel zaman içinde, kalbur saman içinde'' diye başlar ve eskiden genellikle akşamları anlatılırmış. Bu yüzden sayfayı gece gökyüzü temasıyla tasarladım. Arka planda lacivert bir gökyüzü, yıldızlar, bir hilal ve ara sıra geçen bir kayan yıldız var. Bunların masala büyülü bir hava verdiğini düşündüm. Altın rengini, eski kitapların yaldızlı kenarlarını hatırlatsın diye seçtim. Masalların okunduğu sayfaları ise eski kitap kâğıdı gibi krem yaptım ve yazıyı koyu kahve yazdım. Böylece arka plan koyu olsa da okuma kısmı gözü yormuyor. Yazı tipi olarak sadece bilgisayarda hazır bulunan yazı tiplerini kullandım, çünkü ödevde sayfanın internetsiz çalışması isteniyordu.
+
+\subsection{Renk Paleti ve Yazı Tipi}
+\begin{center}
+\rowcolors{2}{acik}{white}
+\begin{tabular}{@{}llp{6.4cm}@{}}
+\toprule
+\rowcolor{ana}\textcolor{white}{\textbf{Ad}} & \textcolor{white}{\textbf{Kod}} & \textcolor{white}{\textbf{Nerede / neden kullandınız?}} \\
+\midrule
+Gece laciverti & \texttt{\#0a0e2a} & Sayfanın zemini ve menü. Gece gökyüzü gibi görünüyor. Krem yazıyla karşıtlığı yaklaşık 16:1. \\
+Çivit moru & \texttt{\#3a2d7c} & Düğmeler ve kitabın kenarı. Gökyüzünün alt kısmındaki mor renge yakın. \\
+Yıldız altını & \texttt{\#E2C27F} & Başlıklar, çerçeveler ve vurgular. Eski kitap yaldızına benziyor. Laciverte karşı karşıtlığı yaklaşık 11:1. \\
+Krem & \texttt{\#F5EBDD} & Kitap sayfası ve koyu zemindeki yazılar. Eski kâğıt rengi. \\
+Koyu kahve & \texttt{\#493832} & Kitap sayfasındaki masal yazısı. Kreme karşı karşıtlığı yaklaşık 9,4:1. \\
+Başlık yazı tipi & -- & Segoe Script / Apple Chancery. El yazısına benziyor, sadece büyük başlıklarda kullandım. \\
+Masal yazı tipi & -- & Cambria / Georgia. Kitaplardaki gibi serifli ve okuması kolay. \\
+Menü yazı tipi & -- & Trebuchet MS / Segoe UI. Sade bir yazı tipi. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Okunabilirlik, Gezinme ve Duyarlı Tasarım}
+\begin{itemize}
+  \item \textbf{Okunabilirlik:} Masal yazısı krem zeminde koyu kahve renkte, karşıtlığı yaklaşık 9,4:1. Satır aralığını 1,85 yaptım. Kitap iki sayfalı olduğu için satırlar kısa kalıyor, bir satırda yaklaşık 45--55 karakter var. Kullanıcı A$-$ ve A+ düğmeleriyle yazıyı küçültüp büyütebiliyor. Metin sayfaya sığacak şekilde bölündüğü için aşağı kaydırmak gerekmiyor.
+  \item \textbf{Gezinme:} Açılış sayfasından bir düğmeyle masalların olduğu sayfaya geçiliyor. Orada masalı adından ya da metninden arayabiliyorsunuz, türüne göre süzebiliyorsunuz. ``Favoriler'' düğmesi sadece favorileri gösteriyor, ``Rastgele Masal'' düğmesi de rastgele bir masal açıyor. Okurken ok tuşlarıyla sayfa çevrilebiliyor, Esc tuşuyla geri dönülüyor.
+  \item \textbf{Duyarlı tasarım:} Kartları CSS grid ile dizdim, ekran küçülünce sütun sayısı kendiliğinden azalıyor. Ekran 768 pikselden küçükse (telefon) kitap tek sayfa oluyor, bilgisayarda iki sayfa görünüyor. Menü ve boşluklar da küçülüyor.
+  \item \textbf{Tutarlılık:} Bütün renkleri CSS değişkenleriyle (\texttt{:root}) tanımladım ve her yerde onları kullandım. Başlıkların yazı tipi aynı, kartların çerçevesi ve boşlukları da aynı.
+\end{itemize}
+
+\subsection{Ekran Görüntüleri}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.9\textwidth]{ekran-acilis.png}
+  \caption{Açılış sayfası: yıldızlı gökyüzü ve ``Keşfetmeye Başla'' düğmesi}
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.9\textwidth]{ekran-masaustu.png}
+  \caption{Masalların bilgisayar görünümü (favori kalpleri ve favori süzgeci)}
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.9\textwidth]{ekran-okuyucu.png}
+  \caption{İki sayfalı kitap okuyucusu}
+\end{figure}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.35\textwidth]{ekran-mobil.png}
+  \caption{Masalların telefon görünümü}
+\end{figure}
+
+% ====================================================================
+\section{Gerçekleştirme}
+% ====================================================================
+\subsection{HTML Yapısı}
+Sayfada iki ana kısım ve bir okuma penceresi var. Arka plandaki yıldızları \texttt{<canvas>} ile çizdim, hilal için de bir \texttt{<div>} kullandım. Açılış sayfası \texttt{<header>} içinde. Masalların olduğu kısım \texttt{<div id="uygulama">} içinde ve başta \texttt{hidden} ile gizli duruyor, ``Keşfetmeye Başla'' düğmesine basınca görünür oluyor. Bu kısmın içinde menü (\texttt{<nav>}), koleksiyon (\texttt{<main>}) ve \texttt{<footer>} var. \texttt{<main>} içinde başlık, arama kutusu, tür menüsü, favori düğmesi ve kartların konduğu grid bulunuyor. Masalı okuduğumuz iki sayfalı kitap ise ayrı bir pencere olarak (\texttt{okuyucu-modal}) sayfanın üstünde açılıyor.
+
+\subsection{İçsel CSS}
+Renkleri \texttt{:root} içinde CSS değişkeni olarak tanımladım. Böylece bir rengi değiştirmek istersem tek yerden değiştirebiliyorum. Sayfanın zemini lacivertten mora geçen sabit bir gradyan. Yıldızları çizen \texttt{canvas} de ekrana sabit, içerik onun önünde duruyor. Kartlar CSS grid ile diziliyor ve \texttt{auto-fill} sayesinde ekran genişliğine göre sütun sayısı değişiyor. \texttt{@media (max-width: 768px)} kuralı telefonda kartları ve boşlukları küçültüyor. \texttt{prefers-reduced-motion} kuralı da hareketten rahatsız olan kullanıcılar için animasyonları kapatıyor.
+
+\begin{lstlisting}[caption={İçsel CSS'ten önemli bir bölüm}]
+:root {
+  --visne-koyu: #0a0e2a;   /* gece laciverti */
+  --altin: #E2C27F;        /* yildiz altini */
+  --krem: #F5EBDD;         /* kitap kagidi */
+}
+body {
+  background-image: linear-gradient(180deg, #04061a 0%,
+      #0a0e2e 40%, #1b1450 75%, #3a1f5c 100%);
+  background-attachment: fixed;
+}
+.grid-kartlar {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 2rem;
+}
+@media (max-width: 768px) {
+  .grid-kartlar {
+    grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
+  }
+}
+\end{lstlisting}
+
+\subsection{İçsel JavaScript}
+Masalları \texttt{masallar} adlı bir dizide tuttum. Her masal bir nesne ve içinde \texttt{id}, \texttt{gorsel}, \texttt{ad}, \texttt{tur} ve paragraflardan oluşan \texttt{metin} var. \texttt{kartlariCiz()} fonksiyonu bu diziyi arama kutusuna, tür menüsüne ve favori düğmesine göre \texttt{filter} ile süzüyor. Geriye kalan her masal için bir kart oluşturup grid'e ekliyor. Bir karta tıklanınca \texttt{masalAc()} okuyucuyu açıyor. \texttt{sayfalaraBol()} fonksiyonu masalı sayfalara bölüyor: görünmeyen bir alanda metnin yüksekliğini ölçüyor ve sayfaya sığdığı kadar kelime koyuyor. Böylece yazı boyutu ya da ekran değişince sayfa sayısı kendiliğinden güncelleniyor. Favoriler, okunan masallar ve yazı boyutu tarayıcının \texttt{localStorage} alanında saklanıyor, bu yüzden sayfayı kapatsak da kaybolmuyor. Gökyüzü animasyonunda her karede yıldızları \texttt{canvas} üzerine çiziyorum. Parıldamaları için \texttt{sin} fonksiyonunu kullandım. Kayan yıldızlar da belli aralıklarla oluşan ve çapraz giden nesneler. Döngü \texttt{requestAnimationFrame} ile çalışıyor. Olayları \texttt{onclick}, \texttt{oninput}, \texttt{onchange} ve \texttt{keydown} ile bağladım.
+
+\begin{lstlisting}[caption={İçsel JavaScript'ten önemli bir bölüm}]
+let favoriler = new Set(
+  JSON.parse(localStorage.getItem("favoriMasallar") || "[]"));
+
+function favoriDegis(id) {
+  if (favoriler.has(id)) favoriler.delete(id);
+  else favoriler.add(id);
+  kaydet();        // localStorage'a yazar
+  favGuncelle();   // kalpleri ve sayaci gunceller
+  if (sadeceFavori && okuyucuModal.hidden) kartlariCiz();
+}
+
+// kartlariCiz() icinde: arama + tur + favori suzgeci
+const sonuc = masallar.filter(m =>
+  (!arama || tr(m.ad + " " + m.metin.join(" ")).includes(arama)) &&
+  (!tur || m.tur === tur) &&
+  (!sadeceFavori || favoriler.has(m.id)));
+\end{lstlisting}
+
+\subsection{Sayfanın Özellikleri}
+\begin{itemize}
+  \item Yıldızlı gökyüzü, hilal ve kayan yıldızlı açılış sayfası. Düğmeye basınca masalların sayfasına geçiliyor.
+  \item Masalı adından ya da metninden arama, türüne göre süzme.
+  \item Favorilere ekleme, sadece favorileri gösterme ve favori sayacı. Favoriler tarayıcıda saklanıyor.
+  \item Rastgele masal açma.
+  \item İki sayfalı kitap görünümünde okuma (telefonda tek sayfa), sayfa çevirme ve sayfa göstergesi.
+  \item Yazı boyutunu değiştirme (A$-$ / A+).
+  \item Okunan masallarda ``Okundu'' rozeti.
+  \item Klavye desteği: ok tuşlarıyla sayfa çevirme, Esc ile kapatma.
+  \item Her masal için doğrudan bağlantı (örneğin \texttt{\#tahir-zuhre}).
+\end{itemize}
+
+% ====================================================================
+\section{Yapay Zekâ Kullanımı}
+% ====================================================================
+\begin{longtable}{@{}p{2.6cm}p{3.6cm}p{4.2cm}p{3.4cm}@{}}
+\toprule
+\textbf{Araç} & \textbf{Ne için kullandınız?} & \textbf{İstem (prompt) özeti} & \textbf{Sayfada nerede?} \\
+\midrule
+\endhead
+Claude (Anthropic) & Kod & Açılış sayfasını, yıldızlı gökyüzünü, kayan yıldızı, favori özelliğini ve yazı tipi değişikliklerini yapmasını istedim. Çıkan hataları da düzelttirdim. & Gökyüzü, açılış sayfası, favoriler, yazı tipleri \\
+Claude (Anthropic) & Rapor & Rapor şablonundaki bölümlerin taslağını yazmasını istedim. & Bu rapor \\
+\relax[Görsel aracı] & Görsel & [Kapak çizimlerini üretirken verdiğiniz istemi buraya yazın.] & Masal kapakları (koleksiyon kartları) \\
+\bottomrule
+\end{longtable}
+
+\subsection{Anladığım ve Kendim Yaptığım Kısımlar}
+Projede beni en çok zorlayan şey kod yazmak oldu. Bu yüzden Claude'dan yardım aldım. Kodun büyük kısmını Claude yazdı, ben ona ne istediğimi anlattım. Sayfanın renklerini kendim düzenledim. Masalları da ben ekledim: her masalın kapağını ve içindeki metni sayfaya yerleştirdim.
+
+% ====================================================================
+\section{Haftalık Katkılar}
+% ====================================================================
+\aciklama{Her hafta ders içinde yaptığınız çalışmayı kısaca yazın (2--4 cümle). Hangi
+özelliği eklediğinizi ya da neyi düzelttiğinizi belirtin ve ilgili commit mesajını
+ya da bağlantısını ``Commit'' satırına yazın. Her satıra ekran görüntüsü ekleyin:
+resimleri \texttt{hafta1.png}, \texttt{hafta2.png}, \ldots{} adıyla Overleaf
+projesine yükleyin. Aynı haftaya ikinci bir görsel eklemek için
+\texttt{hafta1b.png} gibi bir dosya yükleyin; kendiliğinden görünür.
+Her haftanın altındaki kutulardan o hafta için geçerli olanı $\boxtimes$ ile
+işaretleyin: dersin kendisinde katılım gösterdiyseniz ``Ders içinde katılım
+sergiledim'', o haftayı sonradan tamamladıysanız ``Telafi yaptım''. Telafi
+yaptıysanız yapılan çalışmanın metninde bunu açıkça belirtin.}
+
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{1.7cm}%
+                    >{\raggedright\arraybackslash}p{6.4cm}%
+                    >{\centering\arraybackslash}p{6cm}@{}}
+\toprule
+\rowcolor{ana}\textcolor{white}{\textbf{Hafta}} & \textcolor{white}{\textbf{Yapılan çalışma}} & \textcolor{white}{\textbf{Görsel}} \\
+\midrule
+\endfirsthead
+\toprule
+\rowcolor{ana}\textcolor{white}{\textbf{Hafta}} & \textcolor{white}{\textbf{Yapılan çalışma}} & \textcolor{white}{\textbf{Görsel}} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+
+\textbf{1. hafta}\newline 23 Eylül 2026 &
+HTML ile WorldWideWeb adlı bir sayfa hazırladım. Sayfada başlıklar, paragraflar, liste ve bağlantılar var. \texttt{<style>} içinde \texttt{body}, \texttt{h1}, \texttt{h2} ve \texttt{a} için renk, yazı tipi ve boşluk tanımladım.\newline \textbf{Commit:} [mesaj veya bağlantı]\katilimok &
+\haftagorsel{hafta1.png} \\
+\midrule
+\textbf{2. hafta}\newline 30 Eylül 2026 &
+JavaScript'e başladım. \texttt{document.getElementById} ile bir düğmenin rengini kırmızı yaptım. Üzerine gelince kırmızı, çıkınca mavi olan bir yazı yaptım (\texttt{mouseover}, \texttt{mouseout}). Bağlantıyı aynı sekmede ve yeni sekmede açmayı, ayrıca \texttt{window.open} ile düğmeyle yeni sekme açmayı denedim. Bu haftayı 30 Eylül'de telafi ederek yaptım.\newline \textbf{Commit:} [mesaj veya bağlantı]\telafiok &
+\haftagorsel{hafta2.png}\haftaek{hafta2b.png}\haftaek{hafta2c.png} \\
+\midrule
+\textbf{3. hafta}\newline 7 Ekim 2026 &
+Düğmeye tıklayınca \texttt{textContent} ile bir yazının değişmesini yaptım. Artır ve Sıfırla düğmeleri olan bir sayaç yazdım. Sayıyı \texttt{let} ile bir değişkende tuttum ve \texttt{addEventListener} ile düğmelere bağladım.\newline \textbf{Commit:} [mesaj veya bağlantı]\katilimok &
+\haftagorsel{hafta3.png}\haftaek{hafta3b.png} \\
+\midrule
+\textbf{4. hafta}\newline 14 Ekim 2026 &
+Düğmeye tıklayınca \texttt{window.location.href} ile başka bir sayfaya gitmeyi denedim. Dört kutudan oluşan renk eşleştirme oyununun kodunu inceleyip çalıştırdım (\texttt{querySelectorAll}, \texttt{forEach}, dizi).\newline \textbf{Commit:} [mesaj veya bağlantı]\katilimok &
+\haftagorsel{hafta4.png}\haftaek{hafta4b.png} \\
+\midrule
+\textbf{5. hafta}\newline 21 Ekim 2026 &
+Harici CSS ile stillendirilmiş bir sayfayı CodePen'de denedim. \texttt{if} koşulunu çalıştım: bir kutunun rengi düğmeye basınca gri ile pembe arasında değişiyor. Ayrıca adı boş bırakınca uyarı veren, doluysa selamlama yazan bir form yaptım (\texttt{if}, \texttt{alert}).\newline \textbf{Commit:} [mesaj veya bağlantı]\katilimok &
+\haftagorsel{hafta5.png}\haftaek{hafta5b.png}\haftaek{hafta5c.png} \\
+\midrule
+\textbf{6. hafta}\newline [tarih] &
+Arayüzü tamamladım, test ettim ve raporunu hazırladım.\newline \textbf{Commit:} [mesaj veya bağlantı]\katilimok &
+\haftagorsel{hafta6.png}\haftaek{hafta6b.png} \\
+\midrule
+\textbf{7. hafta}\newline [tarih] &
+[Bu hafta yaptığınız çalışma.]\newline \textbf{Commit:} [mesaj veya bağlantı]\katilimkutulari &
+\haftagorsel{hafta7.png}\haftaek{hafta7b.png} \\
+\midrule
+\textbf{8. hafta}\newline [tarih] &
+[Bu hafta yaptığınız çalışma.]\newline \textbf{Commit:} [mesaj veya bağlantı]\katilimkutulari &
+\haftagorsel{hafta8.png}\haftaek{hafta8b.png} \\
+\end{longtable}
+
+% ====================================================================
+\section{Test ve Değerlendirme}
+% ====================================================================
+Sayfayı laptopta, telefonda ve tablette denedim ve hiçbirinde sorun yaşamadım. Her masalın bütün sayfaları farklı ekran genişliklerinde ve farklı yazı boyutlarında sonuna kadar çevrilerek metnin eksiksiz göründüğü kontrol edildi. Sayfa internet kapalıyken de açılıp denendi.
+
+\begin{center}
+\rowcolors{2}{acik}{white}
+\begin{tabular}{@{}p{6cm}p{3.4cm}p{3.4cm}@{}}
+\toprule
+\rowcolor{ana}\textcolor{white}{\textbf{Özellik}} & \textcolor{white}{\textbf{Bilgisayar}} & \textcolor{white}{\textbf{Telefon}} \\
+\midrule
+Açılış sayfası ve ``Keşfetmeye Başla'' & Çalışıyor & Çalışıyor \\
+Arama ve tür süzgeci & Çalışıyor & Çalışıyor \\
+Favoriler (ekleme, çıkarma, süzme) & Çalışıyor & Çalışıyor \\
+Kitap okuyucu, sayfa çevirme, yazı boyutu & Çalışıyor & Çalışıyor \\
+Kayan yıldız animasyonu & Çalışıyor & Çalışıyor \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Denenen cihazlar:} laptop, telefon, tablet.\\
+\textbf{Denenen tarayıcılar:} [Chrome, Firefox, Edge, Safari vb.]
+
+% ====================================================================
+\section{Sunum Videosu}
+% ====================================================================
+\begin{center}
+\begin{tabular}{@{}ll@{}}
+\textbf{Video süresi:} & yaklaşık 11 dakika \\
+\textbf{Görünürlük:} & [Listelenmemiş / Herkese açık] \\
+\textbf{Bağlantı:} & \youtubelink \\
+\end{tabular}
+\end{center}
+
+\textbf{Öğretim üyesine not:} Sayın Hocam, sunum videomu OBS Studio ile laptopumun ekranını kaydederek hazırladım. Video yaklaşık 11 dakika sürdü, yani istenen 12--18 dakika aralığının biraz altında kaldı. Ayrıca yükledikten bir süre sonra görüntünün bulanık olduğunu fark ettim. Bu iki durum için özür dilerim. Anlayışınız için teşekkür ederim.
+
+\subsection{Video Kontrol Listesi}
+\aciklama{Teslimden önce hepsini kontrol edin ve kutuları $\boxtimes$ ile işaretleyin.}
+\begin{itemize}[label={}]
+  \item $\square$ Süre 12--18 dakika aralığında.
+  \item $\square$ Sunum boyunca kameram açık, yüzüm görünüyor.
+  \item $\square$ Görünürlük \textbf{Listelenmemiş} (ya da Herkese açık); \textbf{Özel} değil.
+  \item $\square$ Bağlantıyı gizli pencerede açtım, video oynuyor.
+  \item $\square$ YouTube videoyu işlemeyi bitirdi.
+  \item $\square$ Videoyu baştan sona izledim; ses ve kamera tüm sunumda var.
+  \item $\square$ Kapaktaki bağlantı ile bu bölümdeki bağlantı aynı.
+\end{itemize}
+
+% ====================================================================
+\section{Sonuç ve Kendi Değerlendirmem}
+% ====================================================================
+Bu projede HTML, CSS ve JavaScript'i birlikte kullanarak masal okumak için bir web sayfası yaptım. En çok kod yazarken zorlandım. Bunu Claude'dan yardım alarak çözdüm. Ona ne istediğimi anlattım, sayfanın renklerini kendim düzenledim ve masalları kapağından metnine kadar sayfaya ekledim.
+
+İleride sayfayı geliştirmek istiyorum. Hem büyükler hem de küçükler için ayrı masallar eklemek istiyorum. Ayrıca masalların sesli okunmasını da sağlamak istiyorum, böylece okumak istemeyenler masalı dinleyebilir. Görselleri şimdiki hâliyle bırakmak istiyorum.
+
+% ====================================================================
+\section{Kaynakça}
+% ====================================================================
+\aciklama{Masal metinleri için yararlandığınız kitap ve sitelerle, teknik kaynakları
+(MDN vb.) ve kullandığınız görsel kaynaklarını yazın. Masalları kendi
+cümlelerinizle yazmanız gerekir; kaynaklar yalnızca yararlandığınız yerleri
+gösterir.}
+
+\begin{thebibliography}{9}
+\bibitem{k1} Atatürk Kültür Merkezi Başkanlığı. \emph{Türk Masal Külliyatı (TÜMAK) -- Masal Masal Türkiye}. \url{https://www.masal.gov.tr}, [erişim tarihi].
+\bibitem{k2} [Site adı. \emph{Sayfa başlığı}. Bağlantı, erişim tarihi.]
+\bibitem{k3} MDN Web Docs. \emph{Canvas API}. \url{https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API}, [erişim tarihi].
+\bibitem{k4} MDN Web Docs. \emph{Window: requestAnimationFrame() method}. \url{https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame}, [erişim tarihi].
+\bibitem{k5} MDN Web Docs. \emph{Window: localStorage property}. \url{https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage}, [erişim tarihi].
+\end{thebibliography}
+
+% ====================================================================
+\appendix
+\section{Teslim Kontrol Listesi}
+% ====================================================================
+\aciklama{Teslim etmeden önce işaretleyin. Bu sayfayı teslim edilen PDF'te bırakabilirsiniz.}
+\begin{itemize}[label={}]
+  \item $\square$ MEBİS'e \textbf{yalnızca bu raporun PDF'ini} yükleyeceğim. ZIP ve HTML dosyası yüklemeyeceğim.
+  \item $\square$ PDF dosya adı \texttt{OgrenciNo\_AdSoyad\_vize.pdf} biçiminde.
+  \item $\square$ Kapaktaki GitHub ve YouTube bağlantıları doğru; PDF'te tıklayıp denedim.
+  \item $\square$ GitHub deposunda web sayfası (tek \texttt{.html}), rapor PDF'i, \texttt{.tex} kaynakları ve \texttt{README.md} var.
+  \item $\square$ GitHub deposu \textbf{herkese açık} (ya da öğretim üyesine erişim verdim).
+  \item $\square$ Çalışmamın son hâli teslim saatinden \textbf{önce} depoya gönderildi (sonraki commitler değerlendirilmez).
+  \item $\square$ Sayfa içsel CSS ve içsel JavaScript kullanıyor, harici dosya gerektirmiyor.
+  \item $\square$ Hazır taslak kullanmadım; yapay zekâ kullandıysam Bölüm 5'i doldurdum.
+  \item $\square$ Çalışmanın mantığını sunumda anlatabilirim.
+\end{itemize}
+
+\end{document}
